@@ -40,7 +40,7 @@ const readFile = fileName => {
 async function processFile() {
   return new Promise((resolve, reject) => {
     fileExists(fileName)
-      .then(readFile) // readfileets returned from called Promise if correctly resolved
+      .then(readFile) // readfile gets returned from called Promise if correctly resolved
       .catch(err => {
         console.log(err);
       });
