@@ -3,6 +3,7 @@ const fs = require("fs");
 
 const fileName = "input.txt";
 
+// Check if file exists
 const fileExists = fileName => {
   return new Promise((resolve, reject) => {
     fs.stat(fileName, err => {
@@ -16,20 +17,23 @@ const fileExists = fileName => {
   });
 };
 
+// Create stream and read file
 const readFile = fileName => {
   return new Promise((resolve, reject) => {
     let stream = fs.createReadStream(fileName);
     let readInterface = readline.createInterface({
       input: stream
     });
-
+    var resultArray = [];
     readInterface
       .on("line", line => {
-        console.log(line);
+        resultArray.push(line);
+        // resolve(line);
+        // console.log("console log, ", line);
       })
       .on("close", () => {
-        // This is wierd, why no close
-        resolve("\n\n***   That't it, that's all.   ***");
+        resolve(resultArray);
+        // resolve("\n\n***   That't it, that's all.   ***");
       })
       .on("error", err => {
         reject(err);
@@ -37,10 +41,15 @@ const readFile = fileName => {
   });
 };
 
+//Process file
 async function processFile() {
   return new Promise((resolve, reject) => {
     fileExists(fileName)
       .then(readFile) // readfile gets returned from called Promise if correctly resolved
+      .then(data => {
+        resolve(data);
+        // console.log(data);
+      })
       .catch(err => {
         console.log(err);
       });
@@ -49,7 +58,7 @@ async function processFile() {
 
 async function getRows() {
   try {
-    const result = await processFile();
+    return processFile();
     // console.log(result); // dafuq
   } catch (e) {
     console.error(e);
