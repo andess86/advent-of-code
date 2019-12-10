@@ -8,7 +8,6 @@ const fileExists = fileName => {
   return new Promise((resolve, reject) => {
     fs.stat(fileName, err => {
       if (!err) {
-        // console.log("File exists");
         resolve(fileName);
       } else if (err.code === "ENOENT") {
         reject("Could not find file");
@@ -28,12 +27,9 @@ const readFile = fileName => {
     readInterface
       .on("line", line => {
         resultArray.push(line);
-        // resolve(line);
-        // console.log("console log, ", line);
       })
       .on("close", () => {
         resolve(resultArray);
-        // resolve("\n\n***   That't it, that's all.   ***");
       })
       .on("error", err => {
         reject(err);
@@ -48,7 +44,6 @@ async function processFile() {
       .then(readFile) // readfile gets returned from called Promise if correctly resolved
       .then(data => {
         resolve(data);
-        // console.log(data);
       })
       .catch(err => {
         console.log(err);
@@ -59,7 +54,6 @@ async function processFile() {
 async function getRows() {
   try {
     return processFile();
-    // console.log(result); // dafuq
   } catch (e) {
     console.error(e);
   }
