@@ -1,4 +1,4 @@
-const { getRows } = require("./utils");
+const { getRows } = require("../utils");
 
 let modules = getRows();
 
