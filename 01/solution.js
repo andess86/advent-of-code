@@ -1,7 +1,6 @@
 const { getRows } = require("./utils");
 
-let a = getRows();
-let sum = 0;
+let modules = getRows();
 
 const calculateFuel = module => {
   return Math.floor(module / 3) - 2;
@@ -17,14 +16,33 @@ const calculateTotalFuel = modules => {
   );
 };
 
-//Day 1, first half
-a.then(mass => {
-  return mass.reduce((acc, module) => {
-    return acc + calculateFuel(module);
-  }, 0);
-}).then(res => {
-  console.log("First half, ", res);
-});
+//--- Day 1: The Tyranny of the Rocket Equation ---
+//--- First half ---
 
-//Day 1, first half, using recursion
-a.then(modules => calculateTotalFuel(modules)).then(data => console.log("First half, ", data));
+solution1_old = modules =>
+  modules
+    .then(mass => {
+      return mass.reduce((acc, module) => {
+        return acc + calculateFuel(module);
+      }, 0);
+    })
+    .then(res => {
+      console.log("First half, ", res);
+    });
+
+//--- First half again, using recursion ---
+
+solution1 = modules =>
+  modules
+    .then(mass => calculateTotalFuel(mass))
+    .then(data =>
+      console.log(
+        "The sum of all modules mass will take",
+        data,
+        "liters of fuel to launch."
+      )
+    );
+
+//--- Take-off! ---
+
+solution1(modules);
