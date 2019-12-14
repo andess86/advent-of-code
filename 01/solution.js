@@ -1,6 +1,6 @@
 const { getRows } = require("../utils");
 
-let modules = getRows();
+const modules = getRows();
 
 const calculateFuel = module => {
   return Math.floor(module / 3) - 2;
@@ -19,7 +19,7 @@ const calculateTotalFuel = modules => {
 //--- Day 1: The Tyranny of the Rocket Equation ---
 //--- First half ---
 
-solution1_old = modules =>
+const solution1_old = modules =>
   modules
     .then(mass => {
       return mass.reduce((acc, module) => {
@@ -32,7 +32,7 @@ solution1_old = modules =>
 
 //--- First half again, using recursion ---
 
-solution1 = modules =>
+const solution1 = modules =>
   modules
     .then(mass => calculateTotalFuel(mass))
     .then(data =>
